@@ -4,8 +4,7 @@ import 'package:http/http.dart' as http;
 
 class ClaudeService {
   final String _baseUrl = 'https://api.anthropics.com/v1/messages';
-  final String _apiKey = 'c2c7b3b0-7b7b-11e9-8f9e-2a86e4085a59';
-
+  final String _apiKey = '';
   Future<String> analyze(File image) async {
     final bytes = await image.readAsBytes();
     final base64Image = base64Encode(bytes);
@@ -20,7 +19,7 @@ class ClaudeService {
       body: jsonEncode({
         'model': 'claude-3-opus-20240229',
         'max_tokens': 180,
-        'message': [
+        'messages': [
           {
             'role': 'user',
             'content': [
@@ -50,4 +49,6 @@ class ClaudeService {
       throw Exception('Failed to analyze image: ${response.statusCode}');
     }
   }
+
+  static analyzeImage(File file) {}
 }
